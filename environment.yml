@@ -1,30 +1,51 @@
-name: Meta Kaggle Hackathon project
+name: meta_kaggle_hackathon        # use underscores, not spaces
 channels:
-  - anaconda
-  - conda-forge
+  - conda-forge                    # prefer forge for DS libs
   - defaults
+
 dependencies:
-  - invoke
+  # ---------- core ----------
+  - python=3.12
+  - pip
+
+  # ---------- notebooks & dev ----------
+  - jupyterlab=4
   - jupyter
-  - jupyterlab
-  - matplotlib
+  - invoke
+  - path.py
+  - mlflow                         # experiment tracking
+
+  # ---------- classic science stack ----------
   - numpy
   - pandas
   - pandas-profiling
-  - path.py
-  - python=3.6
-  - scikit-learn
+  - matplotlib
   - seaborn
   - statsmodels
+  - scikit-learn
+
+  # ---------- fast analytics ----------
+  - polars                         # blazing-fast DataFrame  [oai_citation:8‡kaggle.com](https://www.kaggle.com/code/mahmoudahmed6/polars-full-guide?utm_source=chatgpt.com)
+  - duckdb                         # SQL-on-Parquet engine  [oai_citation:9‡datacamp.com](https://www.datacamp.com/tutorial/duckdb-to-speed-up-data-pipelines?utm_source=chatgpt.com)
+  - pyarrow                        # parquet/arrow IO backbone
+
+  # ---------- tabular ML ----------
+  - lightgbm
+  - xgboost
+  - catboost                       # conda-forge provides arm64 wheels too  [oai_citation:10‡anaconda.org](https://anaconda.org/conda-forge/catboost?utm_source=chatgpt.com)
+  - shap                           # model explainability  [oai_citation:11‡xgboosting.com](https://xgboosting.com/explain-xgboost-predictions-with-shap/?utm_source=chatgpt.com)
+
+  # ---------- optional deep-learning (CPU) ----------
+  - pytorch=2.2.*                  # CPU build; drop if unneeded
+
+  # ---------- pip-only extras ----------
   - pip:
-      - black
-      - h2o
+      - openai>=1.88               # GPT-4o / o3 calls in notebooks
+      - keras==3.*                 # pairs with tf if you later add it
       - kaggle
-      - keras
-      - lightgbm
-      - missingno
+      - plotly>=5
+      - black
       - nbdime
-      - plotly
       - pylint
+      - missingno
       - pyspark
-      - tensorflow
